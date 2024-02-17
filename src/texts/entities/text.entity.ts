@@ -1,5 +1,15 @@
+import { CommentsEntity } from 'src/comments/entities/comment.entity';
 import { UserEntity } from 'src/user/entities/user.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { LikesEntity } from 'src/likes/entities/like.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { AudioGenerationRequestEntity } from 'src/audiogenerationrequests/entities/audiogenerationrequest.entity';
 
 @Entity('texts') // name of the table
 export class TextsEntity {
@@ -7,7 +17,7 @@ export class TextsEntity {
   id: number;
 
   @Column()
-  text_content: string;
+  comment_text: string;
 
   @Column()
   text_markup: string;
@@ -15,8 +25,23 @@ export class TextsEntity {
   @Column({ default: 0 })
   like_count: number;
 
-  @ManyToOne(() => UserEntity, (user) => user.texts, {eager: true})
+  @ManyToOne(() => UserEntity, (user) => user.texts, { eager: true })
   @JoinColumn()
   user: UserEntity;
 
+  @OneToMany(() => CommentsEntity, (comments) => comments.text)
+  @JoinColumn()
+  comments: CommentsEntity;
+
+  @OneToMany(() => LikesEntity, (likes) => likes.text)
+  @JoinColumn()
+  likes: LikesEntity;
+
+  // @ApiHideProperty()
+  @OneToMany(
+    () => AudioGenerationRequestEntity,
+    (generation) => generation.text,
+  )
+  @JoinColumn()
+  generation: AudioGenerationRequestEntity;
 }
