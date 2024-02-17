@@ -10,7 +10,9 @@ import {
 import { AudiofilesService } from './audiofiles.service';
 import { CreateAudiofileDto } from './dto/create-audiofile.dto';
 import { UpdateAudiofileDto } from './dto/update-audiofile.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('audiofiles')
 @Controller('audiofiles')
 export class AudiofilesController {
   constructor(private readonly audiofilesService: AudiofilesService) {}

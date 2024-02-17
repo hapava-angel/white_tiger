@@ -1,5 +1,7 @@
+import { ApiHideProperty } from '@nestjs/swagger';
+import { AudiofileEntity } from 'src/audiofiles/entities/audiofile.entity';
 import { UserEntity } from 'src/user/entities/user.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('texts') // name of the table
 export class TextsEntity {
@@ -12,6 +14,7 @@ export class TextsEntity {
   @Column()
   text_markup: string;
 
+  @ApiHideProperty()
   @Column({ default: 0 })
   like_count: number;
 
@@ -19,4 +22,7 @@ export class TextsEntity {
   @JoinColumn()
   user: UserEntity;
 
+  @ApiHideProperty()
+  @OneToMany(() => AudiofileEntity, (audio) => audio.text)
+  audio: AudiofileEntity[];
 }
