@@ -10,13 +10,16 @@ import {
 import { TextsService } from './texts.service';
 import { CreateTextDto } from './dto/create-text.dto';
 import { UpdateTextDto } from './dto/update-text.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { TextsEntity } from './entities/text.entity';
 
+@ApiTags('texts')
 @Controller('texts')
 export class TextsController {
   constructor(private readonly textsService: TextsService) {}
 
   @Post()
-  create(@Body() createTextDto: CreateTextDto) {
+  create(@Body() createTextDto: CreateTextDto): Promise<TextsEntity> {
     return this.textsService.create(createTextDto);
   }
 

@@ -1,11 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTextDto } from './dto/create-text.dto';
 import { UpdateTextDto } from './dto/update-text.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { TextsEntity } from './entities/text.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TextsService {
-  create(createTextDto: CreateTextDto) {
-    return 'This action adds a new text';
+  constructor(
+    @InjectRepository(TextsEntity)
+    private repository: Repository<TextsEntity>,
+  ) {}
+
+  async create(dto: CreateTextDto): Promise<TextsEntity> {
+    return await this.repository.save({
+      text_content: dto.text_content,
+      text_markup: dto.text_markup,
+      like_count: dto.like_count,
+    });
   }
 
   findAll() {
