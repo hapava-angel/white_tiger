@@ -1,23 +1,21 @@
 import { Type } from 'class-transformer';
 import {
-    // IsString,
-    IsNotEmpty,
-    IsTime,
-    IsNumber,
-  } from 'class-validator';
+  // IsString,
+  IsNotEmpty,
+  IsDate,
+  IsNumber,
+} from 'class-validator';
 
 export class CreateLikeDto {
-
   @IsNumber()
   @Type(() => Number)
   userId: number;
 
-  @IsNumber()s
+  @IsNumber()
   @Type(() => Number)
   textId: number;
 
-  @IsTime()
+  @IsDate()
   @IsNotEmpty()
   time: Date;
-
 }

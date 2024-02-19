@@ -1,13 +1,7 @@
 import { Type } from 'class-transformer';
-import {
-    IsString,
-    IsNotEmpty,
-    IsTime,
-    IsNumber,
-  } from 'class-validator';
+import { IsString, IsNotEmpty, IsDate, IsNumber } from 'class-validator';
 
 export class CreateCreditTransactionDto {
-
   @IsNumber()
   @Type(() => Number)
   userId: number;
@@ -18,12 +12,11 @@ export class CreateCreditTransactionDto {
   @IsString()
   ammount: GLfloat;
 
-  @IsTime()
+  @IsDate()
   @IsNotEmpty()
   time: Date;
 
   // @IsNumber()
   // @Type(() => Number)
   // creditstransactioaudiogenerationrequestId: number;
-
 }

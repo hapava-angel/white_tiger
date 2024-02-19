@@ -9,7 +9,7 @@ import { AudiofilesModule } from './audiofiles/audiofiles.module';
 import { CommentsModule } from './comments/comments.module';
 import { LikesModule } from './likes/likes.module';
 import { AudiogenerationrequestsModule } from './audiogenerationrequests/audiogenerationrequests.module';
-import { CredittransactionsModule } from './credittransactions/credittransactions.module';
+import { CreditTransactionsModule } from './credittransactions/credittransactions.module';
 import { getPostgresConfig } from './configs/postgres.config';
 
 @Module({
@@ -28,7 +28,7 @@ import { getPostgresConfig } from './configs/postgres.config';
     CommentsModule,
     LikesModule,
     AudiogenerationrequestsModule,
-    CredittransactionsModule,
+    CreditTransactionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

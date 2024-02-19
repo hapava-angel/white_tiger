@@ -1,5 +1,11 @@
 import { TextsEntity } from 'src/texts/entities/text.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('audiofiles') // name of the table
 export class AudiofileEntity {
@@ -9,7 +15,7 @@ export class AudiofileEntity {
   @Column()
   filepath: string;
 
-  @ManyToOne(() => TextsEntity, (text) => text.audio, {eager: true})
+  @ManyToOne(() => TextsEntity, (text) => text.audio, { eager: true })
   @JoinColumn()
   text: TextsEntity;
 }

@@ -7,14 +7,14 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { CredittransactionsService } from './credittransactions.service';
+import { CreditTransactionsService } from './credittransactions.service';
 import { CreateCreditTransactionDto } from './dto/create-credittransaction.dto';
 import { UpdateCreditTransactionDto } from './dto/update-credittransaction.dto';
 
 @Controller('credittransactions')
 export class CreditTransactionsController {
   constructor(
-    private readonly credittransactionsService: CredittransactionsService,
+    private readonly credittransactionsService: CreditTransactionsService,
   ) {}
 
   @Post()
