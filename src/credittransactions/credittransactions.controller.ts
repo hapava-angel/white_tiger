@@ -8,17 +8,17 @@ import {
   Delete,
 } from '@nestjs/common';
 import { CredittransactionsService } from './credittransactions.service';
-import { CreateCredittransactionDto } from './dto/create-credittransaction.dto';
-import { UpdateCredittransactionDto } from './dto/update-credittransaction.dto';
+import { CreateCreditTransactionDto } from './dto/create-credittransaction.dto';
+import { UpdateCreditTransactionDto } from './dto/update-credittransaction.dto';
 
 @Controller('credittransactions')
-export class CredittransactionsController {
+export class CreditTransactionsController {
   constructor(
     private readonly credittransactionsService: CredittransactionsService,
   ) {}
 
   @Post()
-  create(@Body() createCredittransactionDto: CreateCredittransactionDto) {
+  create(@Body() createCredittransactionDto: CreateCreditTransactionDto) {
     return this.credittransactionsService.create(createCredittransactionDto);
   }
 
@@ -35,11 +35,11 @@ export class CredittransactionsController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateCredittransactionDto: UpdateCredittransactionDto,
+    @Body() updateCreditTransactionDto: UpdateCreditTransactionDto,
   ) {
     return this.credittransactionsService.update(
       +id,
-      updateCredittransactionDto,
+      updateCreditTransactionDto,
     );
   }
 

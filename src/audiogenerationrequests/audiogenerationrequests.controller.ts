@@ -7,19 +7,19 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { AudiogenerationrequestsService } from './audiogenerationrequests.service';
-import { CreateAudiogenerationrequestDto } from './dto/create-audiogenerationrequest.dto';
-import { UpdateAudiogenerationrequestDto } from './dto/update-audiogenerationrequest.dto';
+import { AudioGenerationRequestsService } from './audiogenerationrequests.service';
+import { CreateAudioGenerationRequestDto } from './dto/create-audiogenerationrequest.dto';
+import { UpdateAudiogenerationRequestDto } from './dto/update-audiogenerationrequest.dto';
 
 @Controller('audiogenerationrequests')
-export class AudiogenerationrequestsController {
+export class AudioGenerationRequestsController {
   constructor(
-    private readonly audiogenerationrequestsService: AudiogenerationrequestsService,
+    private readonly audiogenerationrequestsService: AudioGenerationRequestsService,
   ) {}
 
   @Post()
   create(
-    @Body() createAudiogenerationrequestDto: CreateAudiogenerationrequestDto,
+    @Body() createAudiogenerationrequestDto: CreateAudioGenerationRequestDto,
   ) {
     return this.audiogenerationrequestsService.create(
       createAudiogenerationrequestDto,
@@ -39,7 +39,7 @@ export class AudiogenerationrequestsController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateAudiogenerationrequestDto: UpdateAudiogenerationrequestDto,
+    @Body() updateAudiogenerationrequestDto: UpdateAudiogenerationRequestDto,
   ) {
     return this.audiogenerationrequestsService.update(
       +id,

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { CredittransactionsService } from './credittransactions.service';
-import { CredittransactionsController } from './credittransactions.controller';
+import { CreditTransactionsService } from './credittransactions.service';
+import { CreditTransactionsController } from './credittransactions.controller';
 
 @Module({
-  controllers: [CredittransactionsController],
-  providers: [CredittransactionsService],
+  controllers: [CreditTransactionsController],
+  providers: [CreditTransactionsService],
 })
-export class CredittransactionsModule {}
+export class CreditTransactionsModule {}

@@ -6,7 +6,7 @@ import {
     IsNumber,
   } from 'class-validator';
 
-export class AudioGenerationRequestDto {
+export class CreateAudioGenerationRequestDto {
 
   @IsNumber()
   @Type(() => Number)

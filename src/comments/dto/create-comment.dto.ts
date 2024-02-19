@@ -7,7 +7,7 @@ import {
     IsNumber,
   } from 'class-validator';
 
-export class CreateCommentsDto {
+export class CreateCommentDto {
   @IsString()
   comment_text: string;
 

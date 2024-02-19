@@ -6,7 +6,7 @@ import {
     IsNumber,
   } from 'class-validator';
 
-export class CreateLikesDto {
+export class CreateLikeDto {
 
   @IsNumber()
   @Type(() => Number)

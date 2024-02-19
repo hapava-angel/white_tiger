@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AudiogenerationrequestsService } from './audiogenerationrequests.service';
-import { AudiogenerationrequestsController } from './audiogenerationrequests.controller';
+import { AudioGenerationRequestsService } from './audiogenerationrequests.service';
+import { AudioGenerationRequestsController } from './audiogenerationrequests.controller';
 
 @Module({
-  controllers: [AudiogenerationrequestsController],
-  providers: [AudiogenerationrequestsService],
+  controllers: [AudioGenerationRequestsController],
+  providers: [AudioGenerationRequestsService],
 })
 export class AudiogenerationrequestsModule {}

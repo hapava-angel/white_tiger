@@ -6,7 +6,7 @@ import {
     IsNumber,
   } from 'class-validator';
 
-export class AudioGenerationRequestDto {
+export class CreateCreditTransactionDto {
 
   @IsNumber()
   @Type(() => Number)

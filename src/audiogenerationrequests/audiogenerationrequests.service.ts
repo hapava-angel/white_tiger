@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAudiogenerationrequestDto } from './dto/create-audiogenerationrequest.dto';
-import { UpdateAudiogenerationrequestDto } from './dto/update-audiogenerationrequest.dto';
+import { CreateAudioGenerationRequestDto } from './dto/create-audiogenerationrequest.dto';
+import { UpdateAudiogenerationRequestDto } from './dto/update-audiogenerationrequest.dto';
 
 @Injectable()
-export class AudiogenerationrequestsService {
-  create(createAudiogenerationrequestDto: CreateAudiogenerationrequestDto) {
+export class AudioGenerationRequestsService {
+  create(createAudiogenerationrequestDto: CreateAudioGenerationRequestDto) {
     return 'This action adds a new audiogenerationrequest';
   }
 
@@ -18,7 +18,7 @@ export class AudiogenerationrequestsService {
 
   update(
     id: number,
-    updateAudiogenerationrequestDto: UpdateAudiogenerationrequestDto,
+    updateAudiogenerationrequestDto: UpdateAudiogenerationRequestDto,
   ) {
     return `This action updates a #${id} audiogenerationrequest`;
   }
