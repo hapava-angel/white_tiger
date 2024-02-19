@@ -1,11 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAudiofileDto } from './dto/create-audiofile.dto';
 import { UpdateAudiofileDto } from './dto/update-audiofile.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { AudiofileEntity } from './entities/audiofile.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AudiofilesService {
-  create(createAudiofileDto: CreateAudiofileDto) {
-    return 'This action adds a new audiofile';
+  constructor(
+    @InjectRepository(AudiofileEntity)
+    private repository: Repository<AudiofileEntity>,
+  ) {}
+
+  async create(dto: CreateAudiofileDto): Promise<AudiofileEntity> {
+    return await this.repository.save({
+      filepath: dto.filepath,
+    });
   }
 
   findAll() {

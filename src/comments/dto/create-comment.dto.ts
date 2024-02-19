@@ -1,18 +1,26 @@
 // import { ApiHideProperty } from '@nestjs/swagger';
-// import {
-//     IsString,
-//     IsNotEmpty,
-//     IsEmail,
-//     Length,
-//     IsNumberString,
-//   } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+    IsString,
+    IsNotEmpty,
+    IsTime,
+    IsNumber,
+  } from 'class-validator';
 
-// export class CreateCommentsDto {
-//   @IsString()
-//   comment_text: string;
+export class CreateCommentsDto {
+  @IsString()
+  comment_text: string;
 
-//   @IsNumberString()
-//   userId: number;
+  @IsNumber()
+  @Type(() => Number)
+  userId: number;
 
-//   @IsNumberString()
-//   textID: number; 
+  @IsNumber()
+  @Type(() => Number)
+  textId: number;
+
+  @IsTime()
+  @IsNotEmpty()
+  time: Date;
+
+}
