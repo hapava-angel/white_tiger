@@ -1,10 +1,12 @@
 import { ApiHideProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
   IsString,
   IsNotEmpty,
   IsEmail,
   Length,
-  IsNumberString,
+  // IsNumberString,
+  IsNumber,
 } from 'class-validator';
 
 export class CreateUserDto {
@@ -20,7 +22,7 @@ export class CreateUserDto {
   @Length(8, 24)
   password: string;
 
-  @ApiHideProperty()
-  @IsNumberString()
+  @IsNumber()
+  @Type(() => Number)
   credits: number;
 }

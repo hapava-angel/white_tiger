@@ -22,8 +22,8 @@ export class AudioGenerationRequestDto {
   @IsNotEmpty()
   time: Date;
 
-  @IsNumber()
-  @Type(() => Number)
-  creditstransactionsId: number;
+  // @IsNumber()
+  // @Type(() => Number)
+  // creditstransactioaudiogenerationrequestId: number;
 
 }
