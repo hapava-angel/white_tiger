@@ -34,19 +34,20 @@ export class TextsEntity {
 
   @OneToMany(() => CommentsEntity, (comments) => comments.text)
   @JoinColumn()
-  comments: CommentsEntity;
+  comments: CommentsEntity[];
 
   @OneToMany(() => LikesEntity, (likes) => likes.text)
   @JoinColumn()
-  likes: LikesEntity;
+  likes: LikesEntity[];
 
-  // @ApiHideProperty()
+  @ApiHideProperty()
   @OneToMany(
     () => AudioGenerationRequestEntity,
     (generation) => generation.text,
   )
   @JoinColumn()
-  generation: AudioGenerationRequestEntity;
+  generation: AudioGenerationRequestEntity[];
+
   @ApiHideProperty()
   @OneToMany(() => AudiofileEntity, (audio) => audio.text)
   audio: AudiofileEntity[];

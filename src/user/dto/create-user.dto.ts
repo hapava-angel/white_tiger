@@ -1,4 +1,4 @@
-import { ApiHideProperty } from '@nestjs/swagger';
+// import { ApiHideProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsString,

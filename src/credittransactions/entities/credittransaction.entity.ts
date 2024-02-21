@@ -7,13 +7,14 @@ import {
   JoinColumn,
   //ManyToMany,
   ManyToOne,
+  OneToMany,
   //OneToMany,
-  OneToOne,
+  // OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity('transactions')
-export class CreditTransaction {
+export class CreditTransactionEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -30,10 +31,10 @@ export class CreditTransaction {
   @JoinColumn()
   user: UserEntity;
 
-  @OneToOne(
+  @OneToMany(
     () => AudioGenerationRequestEntity,
     (generation) => generation.credits,
   )
   @JoinColumn()
-  generation: AudioGenerationRequestEntity;
+  generation: AudioGenerationRequestEntity[];
 }

@@ -10,7 +10,9 @@ import {
 import { AudioGenerationRequestsService } from './audiogenerationrequests.service';
 import { CreateAudioGenerationRequestDto } from './dto/create-audiogenerationrequest.dto';
 import { UpdateAudiogenerationRequestDto } from './dto/update-audiogenerationrequest.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('audiogenerationrequests')
 @Controller('audiogenerationrequests')
 export class AudioGenerationRequestsController {
   constructor(

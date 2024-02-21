@@ -10,7 +10,9 @@ import {
 import { CreditTransactionsService } from './credittransactions.service';
 import { CreateCreditTransactionDto } from './dto/create-credittransaction.dto';
 import { UpdateCreditTransactionDto } from './dto/update-credittransaction.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('credittransactions')
 @Controller('credittransactions')
 export class CreditTransactionsController {
   constructor(
