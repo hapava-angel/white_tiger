@@ -1,4 +1,4 @@
-// import { ApiHideProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsString,
@@ -11,8 +11,16 @@ import {
 } from 'class-validator';
 
 export class CreateTextDto {
-  @IsString()
-  text_content: string;
+  @ApiProperty({
+    type: 'file',
+    properties: {
+      file: {
+        type: 'string',
+        format: 'binary',
+      },
+    },
+  })
+  text_content: Express.Multer.File;
 
   @IsString()
   text_markup: string;

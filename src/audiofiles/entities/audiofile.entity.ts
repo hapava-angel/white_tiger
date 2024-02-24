@@ -13,7 +13,7 @@ export class AudiofileEntity {
   id: number;
 
   @Column()
-  filepath: string;
+  audio: string;
 
   @ManyToOne(() => TextsEntity, (text) => text.audio, { eager: true })
   @JoinColumn()

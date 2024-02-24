@@ -19,7 +19,7 @@ export class TextsEntity {
   id: number;
 
   @Column()
-  comment_text: string;
+  text_content: string;
 
   @Column()
   text_markup: string;

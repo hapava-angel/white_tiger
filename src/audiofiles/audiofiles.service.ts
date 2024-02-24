@@ -12,9 +12,12 @@ export class AudiofilesService {
     private repository: Repository<AudiofileEntity>,
   ) {}
 
-  async create(dto: CreateAudiofileDto): Promise<AudiofileEntity> {
+  async create(
+    dto: CreateAudiofileDto,
+    audio: Express.Multer.File,
+  ): Promise<AudiofileEntity> {
     return await this.repository.save({
-      filepath: dto.filepath,
+      audio: audio.filename,
     });
   }
 

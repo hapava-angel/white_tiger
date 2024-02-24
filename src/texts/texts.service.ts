@@ -12,9 +12,12 @@ export class TextsService {
     private repository: Repository<TextsEntity>,
   ) {}
 
-  async create(dto: CreateTextDto): Promise<TextsEntity> {
+  async create(
+    dto: CreateTextDto,
+    text_content: Express.Multer.File,
+  ): Promise<TextsEntity> {
     return await this.repository.save({
-      text_content: dto.text_content,
+      text_content: text_content.filename,
       text_markup: dto.text_markup,
       like_count: dto.like_count,
     });
