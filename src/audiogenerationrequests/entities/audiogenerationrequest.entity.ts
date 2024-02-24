@@ -1,4 +1,5 @@
 import { CreditTransactionEntity } from 'src/credittransactions/entities/credittransaction.entity';
+import { StatusEntity } from 'src/status/entities/status.entity';
 import { TextsEntity } from 'src/texts/entities/text.entity';
 import { UserEntity } from 'src/user/entities/user.entity';
 import {
@@ -6,10 +7,8 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  //ManyToMany,
   ManyToOne,
-  // OneToMany,
-  // OneToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -20,9 +19,6 @@ export class AudioGenerationRequestEntity {
 
   @Column()
   cost: GLfloat;
-
-  @Column()
-  status: string; //может не строка, а array если есть ограниченное кол-во значений(маркеров) "ожидание", "завершено", ”отмена”
 
   @CreateDateColumn({ type: 'timestamp' })
   time: Date;
@@ -40,4 +36,8 @@ export class AudioGenerationRequestEntity {
   @ManyToOne(() => CreditTransactionEntity, (credits) => credits.generation)
   @JoinColumn()
   credits: CreditTransactionEntity[];
+
+  @OneToMany(() => StatusEntity, (status) => status.generation_status)
+  @JoinColumn()
+  status: StatusEntity[];
 }

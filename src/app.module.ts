@@ -11,6 +11,8 @@ import { LikesModule } from './likes/likes.module';
 import { AudiogenerationrequestsModule } from './audiogenerationrequests/audiogenerationrequests.module';
 import { CreditTransactionsModule } from './credittransactions/credittransactions.module';
 import { getPostgresConfig } from './configs/postgres.config';
+import { TypeModule } from './type/type.module';
+import { StatusModule } from './status/status.module';
 
 @Module({
   imports: [
@@ -29,6 +31,8 @@ import { getPostgresConfig } from './configs/postgres.config';
     LikesModule,
     AudiogenerationrequestsModule,
     CreditTransactionsModule,
+    TypeModule,
+    StatusModule,
   ],
   controllers: [AppController],
   providers: [AppService],

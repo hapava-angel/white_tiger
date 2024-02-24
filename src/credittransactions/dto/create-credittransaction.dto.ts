@@ -7,9 +7,6 @@ export class CreateCreditTransactionDto {
   userId: number;
 
   @IsString()
-  type: string; //может не строка, а array если есть ограниченное кол-во значений(маркеров) "пополнение", "списание"
-
-  @IsString()
   ammount: GLfloat;
 
   @IsDate()
