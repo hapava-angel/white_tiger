@@ -1,4 +1,5 @@
 // import { ApiHideProperty } from '@nestjs/swagger';
+import { ApiHideProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsString,
@@ -25,4 +26,8 @@ export class CreateUserDto {
   @IsNumber()
   @Type(() => Number)
   credits: number;
+
+  @IsNumber()
+  @Type(() => Number)
+  roleId: number = 1;
 }

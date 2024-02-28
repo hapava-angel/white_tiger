@@ -7,9 +7,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { RoleEntity } from 'src/role/entities/role.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -47,4 +50,9 @@ export class UserEntity {
   @ApiHideProperty()
   @OneToMany(() => AudioGenerationRequestEntity, (likes) => likes.user)
   generation: AudioGenerationRequestEntity[];
+
+  @ApiHideProperty()
+  @OneToOne(() => RoleEntity, (role) => role.user)
+  @JoinColumn()
+  role: RoleEntity;
 }

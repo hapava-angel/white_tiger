@@ -12,6 +12,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
 import { ApiTags } from '@nestjs/swagger';
+import { DeleteResult } from 'typeorm';
 
 @ApiTags('users')
 @Controller('user')
@@ -39,7 +40,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  remove(@Param('id') id: string): Promise<DeleteResult> {
+    return this.userService.delete(+id);
   }
 }

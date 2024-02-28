@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateAudiofileDto } from './dto/create-audiofile.dto';
 import { UpdateAudiofileDto } from './dto/update-audiofile.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AudiofileEntity } from './entities/audiofile.entity';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
+import * as fs from 'fs';
 
 @Injectable()
 export class AudiofilesService {
@@ -21,19 +22,37 @@ export class AudiofilesService {
     });
   }
 
-  findAll() {
-    return `This action returns all audiofiles`;
+  async findAll(): Promise<AudiofileEntity[]> {
+    return this.repository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} audiofile`;
+  async findOne(id: number): Promise<AudiofileEntity> {
+    return this.repository.findOneBy({ id });
   }
 
-  update(id: number, updateAudiofileDto: UpdateAudiofileDto) {
-    return `This action updates a #${id} audiofile`;
+  async update(
+    id: number,
+    dto: UpdateAudiofileDto,
+    audio: Express.Multer.File,
+  ) {
+    const toUpdate = await this.repository.findOneBy({ id });
+    if (!toUpdate) {
+      throw new BadRequestException(`Записи с id=${id} не найдено`);
+    }
+    if (audio) {
+      if (toUpdate.audio !== audio.filename) {
+        fs.unlink(`db_audiofiles/${toUpdate.audio}`, (err) => {
+          if (err) {
+            console.error(err);
+          }
+        });
+      }
+      toUpdate.audio = audio.filename;
+    }
+    return this.repository.save(toUpdate);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} audiofile`;
+  async delete(id: number): Promise<DeleteResult> {
+    return this.repository.delete(id);
   }
 }
