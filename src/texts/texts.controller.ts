@@ -16,6 +16,7 @@ import { ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { TextsEntity } from './entities/text.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { fileStorage } from './storage';
+import { DeleteResult } from 'typeorm';
 
 @ApiTags('texts')
 @Controller('texts')
@@ -43,12 +44,18 @@ export class TextsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTextDto: UpdateTextDto) {
-    return this.textsService.update(+id, updateTextDto);
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(FileInterceptor('text_content', { storage: fileStorage }))
+  update(
+    @Param('id') id: string,
+    @Body() updateTextDto: UpdateTextDto,
+    @UploadedFile() text_content: Express.Multer.File,
+  ): Promise<TextsEntity> {
+    return this.textsService.update(+id, updateTextDto, text_content);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.textsService.remove(+id);
+  remove(@Param('id') id: string): Promise<DeleteResult> {
+    return this.textsService.delete(+id);
   }
 }
