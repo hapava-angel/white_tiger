@@ -12,6 +12,8 @@ import { AudiogenerationrequestsModule } from './audiogenerationrequests/audioge
 import { CreditTransactionsModule } from './credittransactions/credittransactions.module';
 import { getPostgresConfig } from './configs/postgres.config';
 import { RoleModule } from './role/role.module';
+import { TypeModule } from './type/type.module';
+import { StatusModule } from './status/status.module';
 
 @Module({
   imports: [
@@ -31,6 +33,8 @@ import { RoleModule } from './role/role.module';
     AudiogenerationrequestsModule,
     CreditTransactionsModule,
     RoleModule,
+    TypeModule,
+    StatusModule,
   ],
   controllers: [AppController],
   providers: [AppService],

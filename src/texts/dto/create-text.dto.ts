@@ -1,14 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import {
-  IsString,
-  IsNotEmpty,
-  IsEmail,
-  Length,
-  IsNumberString,
-  IsNumber,
-  IsInt,
-} from 'class-validator';
+import { IsString, IsNumber, IsInt } from 'class-validator';
 
 export class CreateTextDto {
   @ApiProperty({
