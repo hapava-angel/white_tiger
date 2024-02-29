@@ -41,3 +41,5 @@ export class AudioGenerationRequestEntity {
   @JoinColumn()
   status: StatusEntity[];
 }
+
+//для создания данного модуля существуют специальныйе бибилиотеки, поэтому на данном этапе разработки оставляем controllers, servises и modules дефолтными.

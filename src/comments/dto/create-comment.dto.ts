@@ -14,7 +14,7 @@ export class CreateCommentDto {
   @Type(() => Number)
   textId: number;
 
-  @IsDate()
-  @IsNotEmpty()
-  time: Date;
+  // @IsDate()
+  // @IsNotEmpty()
+  // time: Date;
 }

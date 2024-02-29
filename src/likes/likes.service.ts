@@ -1,26 +1,64 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateLikeDto } from './dto/create-like.dto';
-import { UpdateLikeDto } from './dto/update-like.dto';
+import { LikesEntity } from './entities/like.entity';
+import { TextsEntity } from 'src/texts/entities/text.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DeleteResult, Repository } from 'typeorm';
+import { UserEntity } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class LikesService {
-  create(createLikeDto: CreateLikeDto) {
-    return 'This action adds a new like';
+  constructor(
+    @InjectRepository(LikesEntity)
+    private likesRepository: Repository<LikesEntity>,
+
+    @InjectRepository(TextsEntity)
+    private textRepository: Repository<TextsEntity>,
+
+    @InjectRepository(UserEntity)
+    private userRepository: Repository<UserEntity>,
+  ) {}
+  async create(dto: CreateLikeDto): Promise<LikesEntity> {
+    const likes = new LikesEntity();
+    likes.like = dto.like;
+
+    const newLike = await this.likesRepository.save(likes);
+
+    const text = await this.textRepository.findOne({
+      where: { id: dto.textId },
+      relations: ['comments'],
+    });
+
+    if (!text) {
+      throw new NotFoundException('Text not found');
+    }
+
+    text.likes.push(newLike);
+    text.like_count++;
+    await this.textRepository.save(text);
+
+    const user = await this.userRepository.findOne({
+      where: { id: dto.userId },
+      relations: ['comments'],
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    user.likes.push(newLike);
+    await this.userRepository.save(user);
+
+    return newLike;
+  }
+  async findAll(): Promise<LikesEntity[]> {
+    return this.likesRepository.find();
   }
 
-  findAll() {
-    return `This action returns all likes`;
+  findOne(id: number): Promise<LikesEntity> {
+    return this.likesRepository.findOneBy({ id });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} like`;
-  }
-
-  update(id: number, updateLikeDto: UpdateLikeDto) {
-    return `This action updates a #${id} like`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} like`;
+  delete(id: number): Promise<DeleteResult> {
+    return this.likesRepository.delete(id);
   }
 }

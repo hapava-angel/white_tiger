@@ -41,11 +41,11 @@ export class UserEntity {
 
   @ApiHideProperty()
   @OneToMany(() => CommentsEntity, (comments) => comments.user)
-  comments: TextsEntity[];
+  comments: CommentsEntity[];
 
   @ApiHideProperty()
   @OneToMany(() => LikesEntity, (likes) => likes.user)
-  likes: TextsEntity[];
+  likes: LikesEntity[];
 
   @ApiHideProperty()
   @OneToMany(() => AudioGenerationRequestEntity, (likes) => likes.user)

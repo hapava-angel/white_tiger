@@ -39,6 +39,6 @@ export class CommentsController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.commentsService.remove(+id);
+    return this.commentsService.delete(+id);
   }
 }
