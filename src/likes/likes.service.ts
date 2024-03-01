@@ -26,7 +26,7 @@ export class LikesService {
 
     const text = await this.textRepository.findOne({
       where: { id: dto.textId },
-      relations: ['comments'],
+      relations: ['likes'],
     });
 
     if (!text) {
@@ -39,7 +39,7 @@ export class LikesService {
 
     const user = await this.userRepository.findOne({
       where: { id: dto.userId },
-      relations: ['comments'],
+      relations: ['likes'],
     });
 
     if (!user) {
