@@ -41,3 +41,5 @@ export class CreditTransactionEntity {
   @JoinColumn()
   type: TypeEntity[];
 }
+
+//для создания данного модуля существуют специальныйе бибилиотеки, поэтому на данном этапе разработки оставляем controllers, servises и modules дефолтными.

@@ -1,8 +1,10 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
+  IsIn,
   // IsString,
-  IsNotEmpty,
-  IsDate,
+  // IsNotEmpty,
+  // IsDate,
   IsNumber,
 } from 'class-validator';
 
@@ -11,11 +13,11 @@ export class CreateLikeDto {
   @Type(() => Number)
   userId: number;
 
+  @ApiProperty({ enum: ['yes']})
+  @IsIn(['yes'])
+  like: string;
+
   @IsNumber()
   @Type(() => Number)
   textId: number;
-
-  @IsDate()
-  @IsNotEmpty()
-  time: Date;
 }

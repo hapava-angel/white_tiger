@@ -1,26 +1,49 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateTypeDto } from './dto/create-type.dto';
 import { UpdateTypeDto } from './dto/update-type.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { TypeEntity } from './entities/type.entity';
+import { Repository } from 'typeorm';
+import { CreditTransactionEntity } from 'src/credittransactions/entities/credittransaction.entity';
 
 @Injectable()
 export class TypeService {
-  create(createTypeDto: CreateTypeDto) {
-    return 'This action adds a new type';
+  constructor(
+    @InjectRepository(TypeEntity)
+    private typeRepository: Repository<TypeEntity>,
+
+    @InjectRepository(CreditTransactionEntity)
+    private transactionRepository: Repository<CreditTransactionEntity>,
+  ) {}
+
+  async create(dto: CreateTypeDto): Promise<TypeEntity> {
+    const status = new TypeEntity();
+    status.name = dto.name;
+    const newStatus = await this.typeRepository.save(status);
+    return newStatus;
   }
 
-  findAll() {
-    return `This action returns all type`;
+  // async findAll(): Promise<TypeEntity[]> {
+  //   return this.typeRepository.find();
+  // }
+
+  // findOne(id: number): Promise<TypeEntity> {
+  //   return this.typeRepository.findOneBy({ id });
+  // }
+
+  async update(id: number, dto: UpdateTypeDto): Promise<TypeEntity> {
+    const toUpdate = await this.typeRepository.findOneBy({ id });
+    if (!toUpdate) {
+      throw new BadRequestException(`Записи с id=${id} не найдено`);
+    }
+    if (dto.name) {
+      toUpdate.name = dto.name;
+    }
+
+    return this.typeRepository.save(toUpdate);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} type`;
-  }
-
-  update(id: number, updateTypeDto: UpdateTypeDto) {
-    return `This action updates a #${id} type`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} type`;
-  }
+  // async delete(id: number): Promise<DeleteResult> {
+  //   return this.typeRepository.delete(id);
+  // }
 }

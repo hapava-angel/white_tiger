@@ -7,6 +7,6 @@ export class CreateTypeDto {
   @Type(() => Number)
   transactionID: number;
 
-  @ApiProperty({ enum: ['ожидание', 'завершено', 'отмена'] })
+  @ApiProperty({ enum: ['пополнение', 'списание'] })
   name: string;
 }

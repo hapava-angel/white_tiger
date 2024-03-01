@@ -3,13 +3,12 @@ import {
   Get,
   Post,
   Body,
-  Patch,
+  // Patch,
   Param,
   Delete,
 } from '@nestjs/common';
 import { LikesService } from './likes.service';
 import { CreateLikeDto } from './dto/create-like.dto';
-import { UpdateLikeDto } from './dto/update-like.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('likes')
@@ -32,13 +31,8 @@ export class LikesController {
     return this.likesService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLikeDto: UpdateLikeDto) {
-    return this.likesService.update(+id, updateLikeDto);
-  }
-
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.likesService.remove(+id);
+    return this.likesService.delete(+id);
   }
 }

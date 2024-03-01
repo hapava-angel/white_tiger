@@ -7,6 +7,6 @@ export class CreateStatusDto {
   @Type(() => Number)
   requestID: number;
 
-  @ApiProperty({ enum: ['пополнение', 'списание'] })
+  @ApiProperty({ enum: ['ожидание', 'завершено', 'отмена'] })
   name: string;
 }

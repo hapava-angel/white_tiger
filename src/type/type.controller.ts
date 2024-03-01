@@ -1,11 +1,11 @@
 import {
   Controller,
-  Get,
+  // Get,
   Post,
   Body,
   Patch,
   Param,
-  Delete,
+  // Delete,
 } from '@nestjs/common';
 import { TypeService } from './type.service';
 import { CreateTypeDto } from './dto/create-type.dto';
@@ -22,23 +22,23 @@ export class TypeController {
     return this.typeService.create(createTypeDto);
   }
 
-  @Get()
-  findAll() {
-    return this.typeService.findAll();
-  }
+  // @Get()
+  // findAll() {
+  //   return this.typeService.findAll();
+  // }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.typeService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.typeService.findOne(+id);
+  // }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTypeDto: UpdateTypeDto) {
     return this.typeService.update(+id, updateTypeDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.typeService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.typeService.delete(+id);
+  // }
 }
