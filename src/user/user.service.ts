@@ -38,7 +38,7 @@ export class UserService {
       throw new NotFoundException('Role not found');
     }
 
-    role.user = user;
+    role.user.push(user);
 
     await this.roleRepository.save(role);
 

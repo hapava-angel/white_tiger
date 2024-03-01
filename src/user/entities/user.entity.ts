@@ -8,6 +8,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -52,7 +53,7 @@ export class UserEntity {
   generation: AudioGenerationRequestEntity[];
 
   @ApiHideProperty()
-  @OneToOne(() => RoleEntity, (role) => role.user)
+  @ManyToOne(() => RoleEntity, (role) => role.user)
   @JoinColumn()
   role: RoleEntity;
 }
