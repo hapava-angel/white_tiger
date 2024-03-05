@@ -1,6 +1,12 @@
 import { ApiHideProperty } from '@nestjs/swagger';
 import { UserEntity } from 'src/user/entities/user.entity';
-import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('role') // name of the table
 export class RoleEntity {

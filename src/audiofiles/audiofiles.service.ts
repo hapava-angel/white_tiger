@@ -8,8 +8,10 @@ import { UpdateAudiofileDto } from './dto/update-audiofile.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AudiofileEntity } from './entities/audiofile.entity';
 import { DeleteResult, Repository } from 'typeorm';
-import * as fs from 'fs';
 import { TextsEntity } from 'src/texts/entities/text.entity';
+import * as googleTTS from 'google-tts-api';
+import axios from 'axios';
+import * as fs from 'fs';
 
 @Injectable()
 export class AudiofilesService {
@@ -21,14 +23,8 @@ export class AudiofilesService {
     private textRepository: Repository<TextsEntity>,
   ) {}
 
-  async create(
-    dto: CreateAudiofileDto,
-    audio: Express.Multer.File,
-  ): Promise<AudiofileEntity> {
+  async create(dto: CreateAudiofileDto): Promise<AudiofileEntity> {
     const audiofile = new AudiofileEntity();
-    audiofile.audio = audio.filename;
-
-    const newAudiofile = await this.audioRepository.save(audiofile);
 
     const text = await this.textRepository.findOne({
       where: { id: dto.textId },
@@ -39,11 +35,50 @@ export class AudiofilesService {
       throw new NotFoundException('Text not found');
     }
 
-    text.audio.push(audiofile);
+    const filename = `./db_audiofiles/audio_${text.id}_${Date.now()}.mp3`;
+    audiofile.audio = filename;
 
+    const newAudiofile = await this.audioRepository.save(audiofile);
+
+    text.audio.push(audiofile);
     await this.textRepository.save(text);
 
+    const audioUrl = await this.generateAudioUrl(text.text_markup);
+    await this.downloadFile(audioUrl, filename);
+
     return newAudiofile;
+  }
+
+  private async generateAudioUrl(textContent: string): Promise<string> {
+    try {
+      const audioUrl = await googleTTS.getAudioUrl(textContent, {
+        lang: 'en',
+        slow: false,
+      });
+      return audioUrl;
+    } catch (error) {
+      throw new Error(`Error generating audio URL: ${error}`);
+    }
+  }
+
+  private async downloadFile(url: string, filename: string): Promise<void> {
+    try {
+      const response = await axios({
+        method: 'GET',
+        url: url,
+        responseType: 'stream',
+      });
+
+      const writer = fs.createWriteStream(filename);
+      response.data.pipe(writer);
+
+      return new Promise((resolve, reject) => {
+        writer.on('finish', resolve);
+        writer.on('error', reject);
+      });
+    } catch (error) {
+      throw new Error(`Error downloading and saving audio file: ${error}`);
+    }
   }
 
   async findAll(): Promise<AudiofileEntity[]> {

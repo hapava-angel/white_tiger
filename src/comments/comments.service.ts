@@ -27,7 +27,6 @@ export class CommentsService {
   async create(dto: CreateCommentDto): Promise<CommentsEntity> {
     const comment = new CommentsEntity();
     comment.comment_text = dto.comment_text;
-    // comment.time = dto.time;
 
     const newComment = await this.commentsRepository.save(comment);
 
@@ -41,6 +40,7 @@ export class CommentsService {
     }
 
     text.comments.push(newComment);
+    text.comment_count++;
     await this.textRepository.save(text);
 
     const user = await this.userRepository.findOne({

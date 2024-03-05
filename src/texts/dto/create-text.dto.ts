@@ -21,6 +21,10 @@ export class CreateTextDto {
   @Type(() => Number)
   like_count: number;
 
+  @IsInt()
+  @Type(() => Number)
+  comment_count: number;
+
   @IsNumber()
   @Type(() => Number)
   userId: number;

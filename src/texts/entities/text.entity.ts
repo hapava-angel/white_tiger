@@ -28,6 +28,10 @@ export class TextsEntity {
   @Column({ default: 0 })
   like_count: number;
 
+  @ApiHideProperty()
+  @Column({ default: 0 })
+  comment_count: number;
+
   @ManyToOne(() => UserEntity, (user) => user.texts, { eager: true })
   @JoinColumn()
   user: UserEntity;

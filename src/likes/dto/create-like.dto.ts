@@ -13,7 +13,7 @@ export class CreateLikeDto {
   @Type(() => Number)
   userId: number;
 
-  @ApiProperty({ enum: ['yes']})
+  @ApiProperty({ enum: ['yes'] })
   @IsIn(['yes'])
   like: string;
 
