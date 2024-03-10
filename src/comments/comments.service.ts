@@ -74,8 +74,6 @@ export class CommentsService {
       toUpdate.comment_text = dto.comment_text;
     }
 
-    // toUpdate.time = new Date();
-
     return this.commentsRepository.save(toUpdate);
   }
 

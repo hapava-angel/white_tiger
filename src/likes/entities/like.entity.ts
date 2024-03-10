@@ -6,19 +6,12 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  Column,
 } from 'typeorm';
 
 @Entity('likes')
 export class LikesEntity {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column({
-    type: 'enum',
-    enum: ['yes'],
-  })
-  like: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   time: Date;

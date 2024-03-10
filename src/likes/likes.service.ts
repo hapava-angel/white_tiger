@@ -20,7 +20,6 @@ export class LikesService {
   ) {}
   async create(dto: CreateLikeDto): Promise<LikesEntity> {
     const likes = new LikesEntity();
-    likes.like = dto.like;
 
     const newLike = await this.likesRepository.save(likes);
 

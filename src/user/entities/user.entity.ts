@@ -10,8 +10,9 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  OneToOne,
+  // OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { RoleEntity } from 'src/role/entities/role.entity';
 
@@ -20,7 +21,7 @@ export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   username: string;
 
   @Column()
@@ -35,6 +36,9 @@ export class UserEntity {
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: Date;
 
   @ApiHideProperty()
   @OneToMany(() => TextsEntity, (text) => text.user)

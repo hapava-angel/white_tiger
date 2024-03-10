@@ -31,29 +31,37 @@ export class UserService {
     user.password = password;
     user.credits = dto.credits;
 
-    const newUser = await this.userRepository.save(user);
+    const newUser = await this.findByUsername(dto.username);
 
     const role = await this.roleRepository.findOne({
       where: { id: dto.roleId },
       relations: ['user'],
     });
 
+    if (newUser) {
+      throw new BadRequestException(
+        `Пользователь ${dto.username} уже существует`,
+      );
+    }
+
     if (!role) {
       throw new NotFoundException('Role not found');
     }
 
     role.user.push(user);
-
     await this.roleRepository.save(role);
-
-    return newUser;
+    return this.userRepository.save(user);
   }
 
   async findAll(): Promise<UserEntity[]> {
     return this.userRepository.find();
   }
 
-  findOne(id: number): Promise<UserEntity> {
+  async findByUsername(username: string) {
+    return this.userRepository.findOneBy({ username });
+  }
+
+  async findById(id: number) {
     return this.userRepository.findOneBy({ id });
   }
 
