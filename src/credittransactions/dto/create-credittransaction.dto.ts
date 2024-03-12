@@ -7,9 +7,6 @@ export class CreateCreditTransactionDto {
   userId: number;
 
   @IsNumber()
-  ammount: GLfloat;
-
-  // @IsNumber()
-  // @Type(() => Number)
-  // audiogenerationrequestId: number;
+  @Type(() => Number)
+  ammount: number = 0;
 }

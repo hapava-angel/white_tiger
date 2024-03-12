@@ -1,4 +1,3 @@
-import { CreditTransactionEntity } from 'src/credittransactions/entities/credittransaction.entity';
 import { StatusEntity } from 'src/status/entities/status.entity';
 import { TextsEntity } from 'src/texts/entities/text.entity';
 import { UserEntity } from 'src/user/entities/user.entity';
@@ -27,15 +26,9 @@ export class AudioGenerationRequestEntity {
   @JoinColumn()
   user: UserEntity;
 
-  // @ApiHideProperty()
   @ManyToOne(() => TextsEntity, (text) => text.generation)
   @JoinColumn()
   text: TextsEntity;
-
-  // @ApiHideProperty()
-  @ManyToOne(() => CreditTransactionEntity, (credits) => credits.generation)
-  @JoinColumn()
-  credits: CreditTransactionEntity[];
 
   @OneToMany(() => StatusEntity, (status) => status.generation_status)
   @JoinColumn()

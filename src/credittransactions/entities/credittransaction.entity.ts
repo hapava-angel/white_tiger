@@ -1,4 +1,3 @@
-import { AudioGenerationRequestEntity } from 'src/audiogenerationrequests/entities/audiogenerationrequest.entity';
 import { TypeEntity } from 'src/type/entities/type.entity';
 import { UserEntity } from 'src/user/entities/user.entity';
 import {
@@ -6,12 +5,8 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  //ManyToMany,
   ManyToOne,
-  OneToMany,
   OneToOne,
-  //OneToMany,
-  // OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -29,13 +24,6 @@ export class CreditTransactionEntity {
   @ManyToOne(() => UserEntity, (user) => user.credits, { eager: true })
   @JoinColumn()
   user: UserEntity;
-
-  @OneToMany(
-    () => AudioGenerationRequestEntity,
-    (generation) => generation.credits,
-  )
-  @JoinColumn()
-  generation: AudioGenerationRequestEntity[];
 
   @OneToOne(() => TypeEntity, (type) => type.credit_type)
   @JoinColumn()
