@@ -1,17 +1,21 @@
 import {
   Controller,
-  // Get,
   Post,
   Body,
   Patch,
   Param,
-  // Delete,
+  UseGuards,
+  Get,
+  Delete,
 } from '@nestjs/common';
 import { StatusService } from './status.service';
 import { CreateStatusDto } from './dto/create-status.dto';
 import { UpdateStatusDto } from './dto/update-status.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @ApiTags('status')
 @Controller('status')
 export class StatusController {
@@ -22,22 +26,23 @@ export class StatusController {
     return this.statusService.create(createStatusDto);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.statusService.findAll();
-  // }
+  @Get()
+  findAll() {
+    return this.statusService.findAll();
+  }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.statusService.findOne(+id);
-  // }
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.statusService.findOne(+id);
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateStatusDto: UpdateStatusDto) {
     return this.statusService.update(+id, updateStatusDto);
   }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.statusService.delete(+id);
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.statusService.delete(+id);
+  }
 }

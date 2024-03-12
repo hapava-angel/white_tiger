@@ -1,8 +1,6 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TextsModule } from './texts/texts.module';
 import { AudiofilesModule } from './audiofiles/audiofiles.module';
@@ -14,6 +12,7 @@ import { getPostgresConfig } from './configs/postgres.config';
 import { RoleModule } from './role/role.module';
 import { TypeModule } from './type/type.module';
 import { StatusModule } from './status/status.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -35,8 +34,9 @@ import { StatusModule } from './status/status.module';
     RoleModule,
     TypeModule,
     StatusModule,
+    AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

@@ -6,12 +6,16 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { CreditTransactionsService } from './credittransactions.service';
 import { CreateCreditTransactionDto } from './dto/create-credittransaction.dto';
 import { UpdateCreditTransactionDto } from './dto/update-credittransaction.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @ApiTags('credittransactions')
 @Controller('credittransactions')
 export class CreditTransactionsController {

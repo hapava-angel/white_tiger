@@ -6,12 +6,16 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { AudioGenerationRequestsService } from './audiogenerationrequests.service';
 import { CreateAudioGenerationRequestDto } from './dto/create-audiogenerationrequest.dto';
 import { UpdateAudiogenerationRequestDto } from './dto/update-audiogenerationrequest.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @ApiTags('audiogenerationrequests')
 @Controller('audiogenerationrequests')
 export class AudioGenerationRequestsController {

@@ -4,7 +4,7 @@ import { UpdateStatusDto } from './dto/update-status.dto';
 import { StatusEntity } from './entities/status.entity';
 import { AudioGenerationRequestEntity } from 'src/audiogenerationrequests/entities/audiogenerationrequest.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 
 @Injectable()
 export class StatusService {
@@ -23,13 +23,13 @@ export class StatusService {
     return newStatus;
   }
 
-  // async findAll(): Promise<StatusEntity[]> {
-  //   return this.statusRepository.find();
-  // }
+  async findAll(): Promise<StatusEntity[]> {
+    return this.statusRepository.find();
+  }
 
-  // findOne(id: number): Promise<StatusEntity> {
-  //   return this.statusRepository.findOneBy({ id });
-  // }
+  findOne(id: number): Promise<StatusEntity> {
+    return this.statusRepository.findOneBy({ id });
+  }
 
   async update(id: number, dto: UpdateStatusDto): Promise<StatusEntity> {
     const toUpdate = await this.statusRepository.findOneBy({ id });
@@ -43,7 +43,7 @@ export class StatusService {
     return this.statusRepository.save(toUpdate);
   }
 
-  // async delete(id: number): Promise<DeleteResult> {
-  //   return this.statusRepository.delete(id);
-  // }
+  async delete(id: number): Promise<DeleteResult> {
+    return this.statusRepository.delete(id);
+  }
 }

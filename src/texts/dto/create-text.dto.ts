@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsString, IsNumber, IsInt } from 'class-validator';
 
@@ -17,13 +17,15 @@ export class CreateTextDto {
   @IsString()
   text_markup: string;
 
+  @ApiHideProperty()
   @IsInt()
   @Type(() => Number)
-  like_count: number;
+  like_count: number = 0;
 
+  @ApiHideProperty()
   @IsInt()
   @Type(() => Number)
-  comment_count: number;
+  comment_count: number = 0;
 
   @IsNumber()
   @Type(() => Number)

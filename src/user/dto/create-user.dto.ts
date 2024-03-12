@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsString,
@@ -23,10 +23,12 @@ export class CreateUserDto {
   @ApiProperty({ default: '123' })
   password: string;
 
+  @ApiHideProperty()
   @IsNumber()
   @Type(() => Number)
-  credits: number;
+  credits: number = 0;
 
+  @ApiHideProperty()
   @IsNumber()
   @Type(() => Number)
   roleId: number = 1;

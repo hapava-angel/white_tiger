@@ -3,7 +3,7 @@ import { CreateTypeDto } from './dto/create-type.dto';
 import { UpdateTypeDto } from './dto/update-type.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TypeEntity } from './entities/type.entity';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { CreditTransactionEntity } from 'src/credittransactions/entities/credittransaction.entity';
 
 @Injectable()
@@ -23,13 +23,13 @@ export class TypeService {
     return newStatus;
   }
 
-  // async findAll(): Promise<TypeEntity[]> {
-  //   return this.typeRepository.find();
-  // }
+  async findAll(): Promise<TypeEntity[]> {
+    return this.typeRepository.find();
+  }
 
-  // findOne(id: number): Promise<TypeEntity> {
-  //   return this.typeRepository.findOneBy({ id });
-  // }
+  findOne(id: number): Promise<TypeEntity> {
+    return this.typeRepository.findOneBy({ id });
+  }
 
   async update(id: number, dto: UpdateTypeDto): Promise<TypeEntity> {
     const toUpdate = await this.typeRepository.findOneBy({ id });
@@ -43,7 +43,7 @@ export class TypeService {
     return this.typeRepository.save(toUpdate);
   }
 
-  // async delete(id: number): Promise<DeleteResult> {
-  //   return this.typeRepository.delete(id);
-  // }
+  async delete(id: number): Promise<DeleteResult> {
+    return this.typeRepository.delete(id);
+  }
 }

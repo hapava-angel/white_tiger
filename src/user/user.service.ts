@@ -31,18 +31,12 @@ export class UserService {
     user.password = password;
     user.credits = dto.credits;
 
-    const newUser = await this.findByUsername(dto.username);
+    const newUser = await this.userRepository.save(user);
 
     const role = await this.roleRepository.findOne({
       where: { id: dto.roleId },
       relations: ['user'],
     });
-
-    if (newUser) {
-      throw new BadRequestException(
-        `Пользователь ${dto.username} уже существует`,
-      );
-    }
 
     if (!role) {
       throw new NotFoundException('Role not found');
@@ -50,7 +44,7 @@ export class UserService {
 
     role.user.push(user);
     await this.roleRepository.save(role);
-    return this.userRepository.save(user);
+    return newUser;
   }
 
   async findAll(): Promise<UserEntity[]> {

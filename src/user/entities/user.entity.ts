@@ -30,7 +30,6 @@ export class UserEntity {
   @Column()
   password: string;
 
-  @ApiHideProperty()
   @Column({ type: 'float', default: 0 })
   credits: number;
 

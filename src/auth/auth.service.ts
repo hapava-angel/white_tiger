@@ -2,12 +2,14 @@ import {
   ForbiddenException,
   Injectable,
   BadRequestException,
+  NotAcceptableException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { UserEntity } from 'src/user/entities/user.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -19,12 +21,14 @@ export class AuthService {
 
   async validateUser(username: string, password: string): Promise<any> {
     const user = await this.usersService.findByUsername(username);
-
-    if (user && user.password === password) {
-      const { password, ...result } = user;
-      return result;
+    if (!user) return null;
+    const passwordValid = await bcrypt.compare(password, user.password);
+    if (!user) {
+      throw new NotAcceptableException('could not find the user');
     }
-
+    if (user && passwordValid) {
+      return user;
+    }
     return null;
   }
 
@@ -41,7 +45,6 @@ export class AuthService {
         token: this.jwtService.sign({ id: userData.id }),
       };
     } catch (err) {
-      // throw new ForbiddenException('Ошибка при регистрации');
       throw new ForbiddenException(err.message);
     }
   }
