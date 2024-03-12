@@ -29,7 +29,6 @@ export class TextsService {
     text.text_content = text_content.filename;
     text.text_markup = dto.text_markup;
     text.like_count = dto.like_count;
-    const newText = await this.textRepository.save(text);
 
     const user = await this.userRepository.findOne({
       where: { id: dto.userId },
@@ -39,6 +38,8 @@ export class TextsService {
     if (!user) {
       throw new NotFoundException('User not found');
     }
+
+    const newText = await this.textRepository.save(text);
 
     user.texts.push(text);
 

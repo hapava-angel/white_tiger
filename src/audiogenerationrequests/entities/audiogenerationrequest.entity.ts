@@ -16,13 +16,13 @@ export class AudioGenerationRequestEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ default: 50 })
   cost: GLfloat;
 
   @CreateDateColumn({ type: 'timestamp' })
   time: Date;
 
-  @ManyToOne(() => UserEntity, (user) => user.generation, { eager: true })
+  @ManyToOne(() => UserEntity, (user) => user.generation)
   @JoinColumn()
   user: UserEntity;
 
@@ -30,9 +30,9 @@ export class AudioGenerationRequestEntity {
   @JoinColumn()
   text: TextsEntity;
 
-  @OneToMany(() => StatusEntity, (status) => status.generation_status)
+  @ManyToOne(() => StatusEntity, (status) => status.generation_status)
   @JoinColumn()
-  status: StatusEntity[];
+  status: StatusEntity;
 }
 
 //для создания данного модуля существуют специальныйе бибилиотеки, поэтому на данном этапе разработки оставляем controllers, servises и modules дефолтными.

@@ -4,6 +4,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -18,10 +19,7 @@ export class StatusEntity {
   })
   name: string;
 
-  @ManyToOne(
-    () => AudioGenerationRequestEntity,
-    (generation_status) => generation_status.status,
-  )
-  @JoinColumn()
+  @OneToMany(
+    () => AudioGenerationRequestEntity,(generation_status) => generation_status.status,)
   generation_status: AudioGenerationRequestEntity[];
 }

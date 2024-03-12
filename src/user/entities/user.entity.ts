@@ -52,11 +52,17 @@ export class UserEntity {
   likes: LikesEntity[];
 
   @ApiHideProperty()
-  @OneToMany(() => AudioGenerationRequestEntity, (likes) => likes.user)
+  @OneToMany(
+    () => AudioGenerationRequestEntity,
+    (generation) => generation.user,
+  )
   generation: AudioGenerationRequestEntity[];
+
 
   @ApiHideProperty()
   @ManyToOne(() => RoleEntity, (role) => role.user)
   @JoinColumn()
   role: RoleEntity;
+
+
 }

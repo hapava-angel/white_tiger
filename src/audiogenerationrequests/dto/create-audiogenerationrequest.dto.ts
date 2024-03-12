@@ -1,15 +1,22 @@
 import { ApiHideProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateAudioGenerationRequestDto {
+  @IsNotEmpty()
   @IsNumber()
   @Type(() => Number)
   userId: number;
 
+  @IsNotEmpty()
   @IsNumber()
   @Type(() => Number)
   textId: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @Type(() => Number)
+  statusId: number;
 
   @ApiHideProperty()
   @IsNumber()
