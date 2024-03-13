@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
 import { AudioGenerationRequestEntity } from './entities/audiogenerationrequest.entity';
 import { TextsEntity } from 'src/texts/entities/text.entity';
 import { StatusEntity } from 'src/status/entities/status.entity';
-import { InsufficientCreditsException } from 'src/audiogenerationrequests/custom-exeptions';
+import { InsufficientCreditsException } from 'src/custom-exeptions';
 
 @Injectable()
 export class AudioGenerationRequestsService {

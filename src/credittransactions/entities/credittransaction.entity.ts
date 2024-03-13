@@ -6,6 +6,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -25,9 +26,9 @@ export class CreditTransactionEntity {
   @JoinColumn()
   user: UserEntity;
 
-  @OneToOne(() => TypeEntity, (type) => type.credit_type)
+  @ManyToOne(() => TypeEntity, (type) => type.credit_type)
   @JoinColumn()
-  type: TypeEntity[];
+  type: TypeEntity;
 }
 
 //для создания данного модуля существуют специальныйе бибилиотеки, поэтому на данном этапе разработки оставляем controllers, servises и modules дефолтными.

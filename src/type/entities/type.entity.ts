@@ -3,6 +3,8 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -18,7 +20,6 @@ export class TypeEntity {
   })
   name: string;
 
-  @OneToOne(() => CreditTransactionEntity, (credit_type) => credit_type.type)
-  @JoinColumn()
+  @OneToMany(() => CreditTransactionEntity, (credit_type) => credit_type.type)
   credit_type: CreditTransactionEntity[];
 }

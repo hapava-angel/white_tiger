@@ -11,9 +11,6 @@ export class TypeService {
   constructor(
     @InjectRepository(TypeEntity)
     private typeRepository: Repository<TypeEntity>,
-
-    @InjectRepository(CreditTransactionEntity)
-    private transactionRepository: Repository<CreditTransactionEntity>,
   ) {}
 
   async create(dto: CreateTypeDto): Promise<TypeEntity> {

@@ -12,9 +12,11 @@ import {
   OneToMany,
   // OneToOne,
   PrimaryGeneratedColumn,
+  Transaction,
   UpdateDateColumn,
 } from 'typeorm';
 import { RoleEntity } from 'src/role/entities/role.entity';
+import { CreditTransactionEntity } from 'src/credittransactions/entities/credittransaction.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -58,11 +60,13 @@ export class UserEntity {
   )
   generation: AudioGenerationRequestEntity[];
 
+  @ApiHideProperty()
+  @OneToMany(() => CreditTransactionEntity, (transaction) => transaction.user)
+  transaction: CreditTransactionEntity[];
 
   @ApiHideProperty()
   @ManyToOne(() => RoleEntity, (role) => role.user)
   @JoinColumn()
   role: RoleEntity;
-
 
 }

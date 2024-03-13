@@ -8,5 +8,9 @@ export class CreateCreditTransactionDto {
 
   @IsNumber()
   @Type(() => Number)
+  typeId: number;
+
+  @IsNumber()
+  @Type(() => Number)
   ammount: number = 0;
 }
