@@ -19,12 +19,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  // @Post('register')
-  // create(@Body() createUserDto: CreateUserDto) {
-  //   return this.userService.create(createUserDto);
-  // }
-
-  @Get('me')
+  @Get()
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   getMe(@UserId() id: number) {

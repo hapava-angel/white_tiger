@@ -20,6 +20,8 @@ export class StatusEntity {
   name: string;
 
   @OneToMany(
-    () => AudioGenerationRequestEntity,(generation_status) => generation_status.status,)
+    () => AudioGenerationRequestEntity,
+    (generation_status) => generation_status.status,
+  )
   generation_status: AudioGenerationRequestEntity[];
 }

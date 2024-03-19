@@ -10,9 +10,7 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  // OneToOne,
   PrimaryGeneratedColumn,
-  Transaction,
   UpdateDateColumn,
 } from 'typeorm';
 import { RoleEntity } from 'src/role/entities/role.entity';
@@ -68,5 +66,4 @@ export class UserEntity {
   @ManyToOne(() => RoleEntity, (role) => role.user)
   @JoinColumn()
   role: RoleEntity;
-
 }
