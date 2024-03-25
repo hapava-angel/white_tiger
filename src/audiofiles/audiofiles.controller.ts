@@ -19,9 +19,11 @@ import { fileStorage } from './storage';
 import { AudiofileEntity } from './entities/audiofile.entity';
 import { DeleteResult } from 'typeorm';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { GoogleOAuthGuard } from 'src/auth/guards/google.guard';
+import { ComplexGuard } from 'src/auth/guards/complex.guard';
 
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+@UseGuards(ComplexGuard)
 @ApiTags('audiofiles')
 @Controller('audiofiles')
 export class AudiofilesController {

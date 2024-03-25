@@ -12,9 +12,10 @@ import { LikesService } from './likes.service';
 import { CreateLikeDto } from './dto/create-like.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { ComplexGuard } from 'src/auth/guards/complex.guard';
 
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+@UseGuards(ComplexGuard)
 @ApiTags('likes')
 @Controller('likes')
 export class LikesController {

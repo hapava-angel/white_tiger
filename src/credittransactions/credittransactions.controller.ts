@@ -13,9 +13,10 @@ import { CreateCreditTransactionDto } from './dto/create-credittransaction.dto';
 import { UpdateCreditTransactionDto } from './dto/update-credittransaction.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { ComplexGuard } from 'src/auth/guards/complex.guard';
 
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+@UseGuards(ComplexGuard)
 @ApiTags('credittransactions')
 @Controller('credittransactions')
 export class CreditTransactionsController {

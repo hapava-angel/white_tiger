@@ -13,9 +13,11 @@ import { CreateAudioGenerationRequestDto } from './dto/create-audiogenerationreq
 import { UpdateAudiogenerationRequestDto } from './dto/update-audiogenerationrequest.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { ComplexGuard } from 'src/auth/guards/complex.guard';
+import { GoogleOAuthGuard } from 'src/auth/guards/google.guard';
 
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+@UseGuards(ComplexGuard)
 @ApiTags('audiogenerationrequests')
 @Controller('audiogenerationrequests')
 export class AudioGenerationRequestsController {
