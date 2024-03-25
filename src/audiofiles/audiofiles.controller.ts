@@ -19,9 +19,12 @@ import { fileStorage } from './storage';
 import { AudiofileEntity } from './entities/audiofile.entity';
 import { DeleteResult } from 'typeorm';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { RolesGuard } from 'src/auth/guards/role.guard';
+import { Role } from 'src/role/role.enum';
+import { Roles } from 'src/decorators/role.decorator';
 
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('audiofiles')
 @Controller('audiofiles')
 export class AudiofilesController {
@@ -35,6 +38,8 @@ export class AudiofilesController {
   }
 
   @Get()
+  @ApiBearerAuth()
+  @Roles(Role.Admin)
   findAll() {
     return this.audiofilesService.findAll();
   }
@@ -45,6 +50,7 @@ export class AudiofilesController {
   }
 
   @Patch(':id')
+  @Roles(Role.Admin)
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(FileInterceptor('audio', { storage: fileStorage }))
   update(

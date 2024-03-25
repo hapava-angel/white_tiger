@@ -7,14 +7,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { RoleEntity } from 'src/role/entities/role.entity';
 import { CreditTransactionEntity } from 'src/credittransactions/entities/credittransaction.entity';
+import { Role } from 'src/role/role.enum';
 
 @Entity('user')
 export class UserEntity {
@@ -39,6 +37,9 @@ export class UserEntity {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
+  @Column({ type: 'enum', enum: Role, default: Role.User })
+  role: Role;
+
   @ApiHideProperty()
   @OneToMany(() => TextsEntity, (text) => text.user)
   texts: TextsEntity[];
@@ -61,9 +62,4 @@ export class UserEntity {
   @ApiHideProperty()
   @OneToMany(() => CreditTransactionEntity, (transaction) => transaction.user)
   transaction: CreditTransactionEntity[];
-
-  @ApiHideProperty()
-  @ManyToOne(() => RoleEntity, (role) => role.user)
-  @JoinColumn()
-  role: RoleEntity;
 }

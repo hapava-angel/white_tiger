@@ -13,9 +13,13 @@ import { CreateTypeDto } from './dto/create-type.dto';
 import { UpdateTypeDto } from './dto/update-type.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { Roles } from 'src/decorators/role.decorator';
+import { Role } from 'src/role/role.enum';
+import { RolesGuard } from 'src/auth/guards/role.guard';
 
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(Role.Admin)
 @ApiTags('type')
 @Controller('type')
 export class TypeController {

@@ -42,7 +42,10 @@ export class AuthService {
       const userData = await this.usersService.create(dto);
 
       return {
-        token: this.jwtService.sign({ id: userData.id }),
+        token: this.jwtService.sign({
+          id: userData.id,
+          role: userData.role,
+        }),
       };
     } catch (err) {
       throw new ForbiddenException(err.message);
@@ -51,7 +54,7 @@ export class AuthService {
 
   async login(user: UserEntity) {
     return {
-      token: this.jwtService.sign({ id: user.id }),
+      token: this.jwtService.sign({ id: user.id, role: user.role }),
     };
   }
 }
