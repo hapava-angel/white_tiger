@@ -13,10 +13,14 @@ import { CreateStatusDto } from './dto/create-status.dto';
 import { UpdateStatusDto } from './dto/update-status.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { Roles } from 'src/decorators/role.decorator';
+import { Role } from 'src/role/role.enum';
+import { RolesGuard } from 'src/auth/guards/role.guard';
 import { ComplexGuard } from 'src/auth/guards/complex.guard';
 
 @ApiBearerAuth()
-@UseGuards(ComplexGuard)
+@UseGuards(ComplexGuard, RolesGuard)
+@Roles(Role.Admin)
 @ApiTags('status')
 @Controller('status')
 export class StatusController {

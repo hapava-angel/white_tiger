@@ -13,11 +13,15 @@ import { CreateAudioGenerationRequestDto } from './dto/create-audiogenerationreq
 import { UpdateAudiogenerationRequestDto } from './dto/update-audiogenerationrequest.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { Roles } from 'src/decorators/role.decorator';
+import { Role } from 'src/role/role.enum';
+import { RolesGuard } from 'src/auth/guards/role.guard';
 import { ComplexGuard } from 'src/auth/guards/complex.guard';
 import { GoogleOAuthGuard } from 'src/auth/guards/google.guard';
 
 @ApiBearerAuth()
-@UseGuards(ComplexGuard)
+@UseGuards(ComplexGuard, RolesGuard)
+@Roles(Role.Admin)
 @ApiTags('audiogenerationrequests')
 @Controller('audiogenerationrequests')
 export class AudioGenerationRequestsController {

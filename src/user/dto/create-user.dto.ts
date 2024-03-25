@@ -7,6 +7,7 @@ import {
   Length,
   IsNumber,
 } from 'class-validator';
+import { Role } from 'src/role/role.enum';
 
 export class CreateUserDto {
   @IsString()
@@ -29,7 +30,6 @@ export class CreateUserDto {
   credits: number = 0;
 
   @ApiHideProperty()
-  @IsNumber()
-  @Type(() => Number)
-  roleId: number = 1;
+  @IsNotEmpty()
+  role: Role = Role.User;
 }

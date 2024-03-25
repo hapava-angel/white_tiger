@@ -1,12 +1,5 @@
 import { AudioGenerationRequestEntity } from 'src/audiogenerationrequests/entities/audiogenerationrequest.entity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('status')
 export class StatusEntity {
@@ -20,6 +13,8 @@ export class StatusEntity {
   name: string;
 
   @OneToMany(
-    () => AudioGenerationRequestEntity,(generation_status) => generation_status.status,)
+    () => AudioGenerationRequestEntity,
+    (generation_status) => generation_status.status,
+  )
   generation_status: AudioGenerationRequestEntity[];
 }

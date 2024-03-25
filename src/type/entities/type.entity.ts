@@ -1,13 +1,5 @@
 import { CreditTransactionEntity } from 'src/credittransactions/entities/credittransaction.entity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('type')
 export class TypeEntity {

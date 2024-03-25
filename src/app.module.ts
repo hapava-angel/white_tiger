@@ -9,7 +9,6 @@ import { LikesModule } from './likes/likes.module';
 import { AudiogenerationrequestsModule } from './audiogenerationrequests/audiogenerationrequests.module';
 import { CreditTransactionsModule } from './credittransactions/credittransactions.module';
 import { getPostgresConfig } from './configs/postgres.config';
-import { RoleModule } from './role/role.module';
 import { TypeModule } from './type/type.module';
 import { StatusModule } from './status/status.module';
 import { AuthModule } from './auth/auth.module';
@@ -31,7 +30,6 @@ import { AuthModule } from './auth/auth.module';
     LikesModule,
     AudiogenerationrequestsModule,
     CreditTransactionsModule,
-    RoleModule,
     TypeModule,
     StatusModule,
     AuthModule,
