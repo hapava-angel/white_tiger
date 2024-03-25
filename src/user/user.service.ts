@@ -1,24 +1,16 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './entities/user.entity';
 import { DeleteResult, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { RoleEntity } from 'src/role/entities/role.entity';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
-
-    @InjectRepository(RoleEntity)
-    private roleRepository: Repository<RoleEntity>,
   ) {}
 
   async create(dto: CreateUserDto): Promise<UserEntity> {
@@ -30,20 +22,9 @@ export class UserService {
     user.email = dto.email;
     user.password = password;
     user.credits = dto.credits;
+    user.role = dto.role;
 
     const newUser = await this.userRepository.save(user);
-
-    const role = await this.roleRepository.findOne({
-      where: { id: dto.roleId },
-      relations: ['user'],
-    });
-
-    if (!role) {
-      throw new NotFoundException('Role not found');
-    }
-
-    role.user.push(user);
-    await this.roleRepository.save(role);
     return newUser;
   }
 
@@ -77,7 +58,7 @@ export class UserService {
     if (dto.credits) {
       toUpdate.credits = dto.credits;
     }
-    if (dto.roleId) throw new BadRequestException(`Роль нельзя менять`);
+    if (dto.role) throw new BadRequestException(`Роль нельзя менять`);
 
     return this.userRepository.save(toUpdate);
   }

@@ -19,10 +19,11 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { fileStorage } from './storage';
 import { DeleteResult } from 'typeorm';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { RolesGuard } from 'src/auth/guards/role.guard';
 import { ComplexGuard } from 'src/auth/guards/complex.guard';
 
 @ApiBearerAuth()
-@UseGuards(ComplexGuard)
+@UseGuards(ComplexGuard, RolesGuard)
 @ApiTags('texts')
 @Controller('texts')
 export class TextsController {

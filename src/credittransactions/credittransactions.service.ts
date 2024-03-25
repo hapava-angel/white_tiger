@@ -46,8 +46,8 @@ export class CreditTransactionsService {
         user.credits += transaction.ammount;
       } else {
         if (type.name === 'списание') {
-          if (user.credits < transaction.ammount){
-            throw new InsufficientCreditsException('Not enough credits')
+          if (user.credits < transaction.ammount) {
+            throw new InsufficientCreditsException('Not enough credits');
           } else user.credits -= transaction.ammount;
         }
       }

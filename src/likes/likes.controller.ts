@@ -12,10 +12,13 @@ import { LikesService } from './likes.service';
 import { CreateLikeDto } from './dto/create-like.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { Roles } from 'src/decorators/role.decorator';
+import { Role } from 'src/role/role.enum';
+import { RolesGuard } from 'src/auth/guards/role.guard';
 import { ComplexGuard } from 'src/auth/guards/complex.guard';
 
 @ApiBearerAuth()
-@UseGuards(ComplexGuard)
+@UseGuards(ComplexGuard, RolesGuard)
 @ApiTags('likes')
 @Controller('likes')
 export class LikesController {
@@ -27,11 +30,13 @@ export class LikesController {
   }
 
   @Get()
+  @Roles(Role.Admin)
   findAll() {
     return this.likesService.findAll();
   }
 
   @Get(':id')
+  @Roles(Role.Admin)
   findOne(@Param('id') id: string) {
     return this.likesService.findOne(+id);
   }

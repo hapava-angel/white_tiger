@@ -1,6 +1,5 @@
-// import { ApiHideProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsString, IsNotEmpty, IsDate, IsNumber } from 'class-validator';
+import { IsString, IsNumber } from 'class-validator';
 
 export class CreateCommentDto {
   @IsString()
@@ -13,8 +12,4 @@ export class CreateCommentDto {
   @IsNumber()
   @Type(() => Number)
   textId: number;
-
-  // @IsDate()
-  // @IsNotEmpty()
-  // time: Date;
 }
