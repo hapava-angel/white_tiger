@@ -14,7 +14,6 @@ import { TextsEntity } from 'src/texts/entities/text.entity';
 import * as googleTTS from 'google-tts-api';
 import axios from 'axios';
 import * as fs from 'fs';
-import { parseString } from 'xml2js';
 
 @Injectable()
 export class AudiofilesService {
@@ -51,46 +50,6 @@ export class AudiofilesService {
 
     return newAudiofile;
   }
-
-  // async generateAudio(text: string): Promise<Buffer> {
-  //   try {
-  //     const jsonResult = await parseString(text, { mergeAttrs: true });
-  //     // Step 1: Send text to generate audio and get job ID
-  //     const generateResponse = await axios.post('http://85.21.8.81:8989/audio/generate', { jsonResult });
-  //     const jobId: string = generateResponse.data.job_id;
-
-  //     // Step 2: Get audio URL using job ID
-  //     const urlResponse = await axios.get(`http://85.21.8.81:8989/audio/job/${jobId}`);
-  //     const audioUrl: string = urlResponse.data.file_url;
-
-  //     // Step 3: Download audio file from URL
-  //     const audioFileResponse = await axios.get(`http://85.21.8.81:8989/audio/get/${audioUrl}`, { responseType: 'arraybuffer' });
-
-  //     // Assuming the audio file is returned as binary data
-  //     const audioData: Buffer = Buffer.from(audioFileResponse.data);
-
-  //     // Return the audio file data
-  //     return audioData;
-  //   } catch (error) {
-  //     console.error(
-  //       'Error generating audio:',
-  //       error.response?.data ?? error.message,
-  //     );
-  //     throw new HttpException(
-  //       'Error generating audio',
-  //       HttpStatus.INTERNAL_SERVER_ERROR,
-  //     );
-  //   }
-  // }
-
-  // async saveAudioToFile(audioData: Buffer, filename: string): Promise<void> {
-  //   try {
-  //     fs.writeFileSync(filename, audioData);
-  //   } catch (error) {
-  //     console.error('Error saving audio to file:', error);
-  //     throw new Error('Error saving audio to file');
-  //   }
-  // }
 
   private async generateAudioUrl(textContent: string): Promise<string> {
     try {
@@ -159,7 +118,3 @@ export class AudiofilesService {
     return this.audioRepository.delete(id);
   }
 }
-// function parseString(xmlString: any, arg1: { mergeAttrs: boolean; }) {
-//   throw new Error('Function not implemented.');
-// }
-
