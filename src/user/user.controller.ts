@@ -16,9 +16,10 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { Roles } from 'src/decorators/role.decorator';
 import { Role } from 'src/role/role.enum';
 import { RolesGuard } from 'src/auth/guards/role.guard';
+import { ComplexGuard } from 'src/auth/guards/complex.guard';
 
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(ComplexGuard, RolesGuard)
 @ApiTags('users')
 @Controller('user')
 export class UserController {
