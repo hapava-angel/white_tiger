@@ -104,7 +104,16 @@ export class AudiofilesService {
       throw new Error('Error saving audio to file');
     }
   }
-  
+  async getAudioPath(id: number): Promise<string> { 
+    const audiofile = await this.audioRepository.findOneBy({ id }); 
+
+    if (!audiofile) { 
+      throw new NotFoundException('Audiofile not found');
+    } 
+ 
+    const filePath = audiofile.audio;
+    return filePath; 
+  }
   private async generateAudioUrlGoogle(textContent: string): Promise<string> {
     try {
       const audioUrl = await googleTTS.getAudioUrl(textContent, {
