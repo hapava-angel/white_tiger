@@ -55,6 +55,7 @@ export class CreditTransactionsController {
   }
 
   @Delete(':id')
+  @Roles(Role.Admin) 
   remove(@Param('id') id: string) {
     return this.credittransactionsService.remove(+id);
   }
