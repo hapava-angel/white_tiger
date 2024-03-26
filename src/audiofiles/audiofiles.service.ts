@@ -37,7 +37,7 @@ export class AudiofilesService {
       throw new NotFoundException('Text not found');
     }
 
-    const filename = `./db_audiofiles/audio_${text.id}_${Date.now()}.mp3`;
+    const filename = `./db_audiofiles/audio_${text.id}_${Date.now()}.wav`;
     audiofile.audio = filename;
 
     const newAudiofile = await this.audioRepository.save(audiofile);
@@ -45,13 +45,67 @@ export class AudiofilesService {
     text.audio.push(audiofile);
     await this.textRepository.save(text);
 
-    const audioUrl = await this.generateAudioUrl(text.text_markup);
-    await this.downloadFile(audioUrl, filename);
+    const audioUrl = await this.generateAudio(text.text_markup);
+    await this.saveAudioToFile(audioUrl, filename);
 
     return newAudiofile;
   }
 
-  private async generateAudioUrl(textContent: string): Promise<string> {
+  async generateAudio(text: string): Promise<Buffer> {
+    try {
+      const url = `http://85.21.8.81:8989/api/v1/audio/generate/?labeled_text=${encodeURIComponent(text)}`;
+      const generateResponse = await axios.post(url);
+      const jobId = generateResponse.data.job_id;
+
+      let file_url;
+      let count_ = 0;
+      while (!file_url) {
+        try{
+          const urlResponse = await axios.get(`http://85.21.8.81:8989/api/v1/audio/job/${jobId}`);
+          if (urlResponse.status === 200) {
+            file_url = urlResponse.data.file_url;
+            console.log(`Attempt ${++count_}: file url received: ${file_url}`);
+          } else {
+            console.log(
+              `Attempt ${++count_}: Response status ${urlResponse.status}`,
+            );
+          }
+        } catch (error) {
+          console.error(
+            'Error generating audio1:',
+            error.response?.data ?? error.message,
+          );
+        }
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+      }
+
+      const audioFileResponse = await axios.get(`http://85.21.8.81:8989/api/v1/audio/get/${file_url}`, { responseType: 'arraybuffer'});
+      const audioData: Buffer = Buffer.from(audioFileResponse.data);
+
+      return audioData;
+
+    } catch (error) {
+      console.error(
+        'Error generating audio:',
+        error.response?.data ?? error.message,
+      );
+      throw new HttpException(
+        'Error generating audio',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  async saveAudioToFile(audioData: Buffer, filename: string): Promise<void> {
+    try {
+      fs.writeFileSync(filename, audioData);
+    } catch (error) {
+      console.error('Error saving audio to file:', error);
+      throw new Error('Error saving audio to file');
+    }
+  }
+  
+  private async generateAudioUrlGoogle(textContent: string): Promise<string> {
     try {
       const audioUrl = await googleTTS.getAudioUrl(textContent, {
         lang: 'en',
@@ -63,7 +117,7 @@ export class AudiofilesService {
     }
   }
 
-  private async downloadFile(url: string, filename: string): Promise<void> {
+  private async downloadFileGoogle(url: string, filename: string): Promise<void> {
     try {
       const response = await axios({
         method: 'GET',

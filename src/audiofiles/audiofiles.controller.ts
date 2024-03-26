@@ -9,6 +9,7 @@ import {
   UseInterceptors,
   UploadedFile,
   UseGuards,
+  Res,
 } from '@nestjs/common';
 import { AudiofilesService } from './audiofiles.service';
 import { CreateAudiofileDto } from './dto/create-audiofile.dto';

@@ -37,10 +37,10 @@ export class AudioGenerationRequestsService {
     if (!user) {
       throw new NotFoundException('User not found');
     } else {
-      if (user.credits < 50) {
+      if (user.credits < generation.cost) {
         throw new InsufficientCreditsException('Not enough credits');
       } else {
-        user.credits -= 50;
+        user.credits -= generation.cost;
       }
     }
 
@@ -76,18 +76,16 @@ export class AudioGenerationRequestsService {
     return newGeneration;
   }
 
-  findAll() {
-    return `This action returns all audiogenerationrequests`;
+  async findAll(): Promise<AudioGenerationRequestEntity[]> {
+    return this.generationRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} audiogenerationrequest`;
+  async findOne(id: number): Promise<AudioGenerationRequestEntity> {
+    return this.generationRepository.findOneBy({ id });
   }
 
   update(
-    id: number,
-    updateAudiogenerationrequestDto: UpdateAudiogenerationRequestDto,
-  ) {
+    id: number, dto: UpdateAudiogenerationRequestDto) {
     return `This action updates a #${id} audiogenerationrequest`;
   }
 
