@@ -7,11 +7,7 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.enableCors({
-    allowedHeaders: ['content-type'],
-    origin: 'http://127.0.0.1:7777',
-    credentials: true,
-  });
+  app.enableCors();
 
   app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix('api');
