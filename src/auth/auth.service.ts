@@ -24,7 +24,7 @@ export class AuthService {
     if (!user) return null;
     const passwordValid = await bcrypt.compare(password, user.password);
     if (!user) {
-      throw new NotAcceptableException('could not find the user');
+      throw new NotAcceptableException('Не удалось найти пользователя');
     }
     if (user && passwordValid) {
       return user;
@@ -60,7 +60,7 @@ export class AuthService {
   
   googleLogin(req) {
     if (!req.user) {
-      return 'No user from google';
+      return 'Нет пользователя Google';
     }
     return {
       token: req.user.accessToken,
