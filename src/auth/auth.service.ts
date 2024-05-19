@@ -42,6 +42,7 @@ export class AuthService {
       const userData = await this.usersService.create(dto);
 
       return {
+        id: userData.id,
         token: this.jwtService.sign({
           id: userData.id,
           role: userData.role,
@@ -54,6 +55,7 @@ export class AuthService {
 
   async login(user: UserEntity) {
     return {
+      id: user.id,
       token: this.jwtService.sign({ id: user.id, role: user.role }),
     };
   }

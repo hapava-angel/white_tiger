@@ -23,10 +23,10 @@ export class TextsService {
 
   async create(
     dto: CreateTextDto,
-    text_content: Express.Multer.File,
+    // text_content: Express.Multer.File,
   ): Promise<TextsEntity> {
     const text = new TextsEntity();
-    text.text_content = text_content.filename;
+    // text.text_content = text_content.filename;
     text.text_markup = dto.text_markup;
     text.like_count = dto.like_count;
 
@@ -59,22 +59,22 @@ export class TextsService {
   async update(
     id: number,
     dto: UpdateTextDto,
-    text_content: Express.Multer.File,
+    // text_content: Express.Multer.File,
   ) {
     const toUpdate = await this.textRepository.findOneBy({ id });
     if (!toUpdate) {
       throw new BadRequestException(`Записи с id=${id} не найдено`);
     }
-    if (text_content) {
-      if (toUpdate.text_content !== text_content.filename) {
-        fs.unlink(`db_texts/${toUpdate.text_content}`, (err) => {
-          if (err) {
-            console.error(err);
-          }
-        });
-      }
-      toUpdate.text_content = text_content.filename;
-    }
+    // if (text_content) {
+    //   if (toUpdate.text_content !== text_content.filename) {
+    //     fs.unlink(`db_texts/${toUpdate.text_content}`, (err) => {
+    //       if (err) {
+    //         console.error(err);
+    //       }
+    //     });
+    //   }
+    //   toUpdate.text_content = text_content.filename;
+    // }
     if (dto.text_markup) {
       toUpdate.text_markup = dto.text_markup;
     }

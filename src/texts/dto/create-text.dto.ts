@@ -3,16 +3,16 @@ import { Type } from 'class-transformer';
 import { IsString, IsNumber, IsInt } from 'class-validator';
 
 export class CreateTextDto {
-  @ApiProperty({
-    type: 'file',
-    properties: {
-      file: {
-        type: 'string',
-        format: 'binary',
-      },
-    },
-  })
-  text_content: Express.Multer.File;
+  // @ApiProperty({
+  //   type: 'file',
+  //   properties: {
+  //     file: {
+  //       type: 'string',
+  //       format: 'binary',
+  //     },
+  //   },
+  // })
+  // text_content: Express.Multer.File;
 
   @IsString()
   text_markup: string;

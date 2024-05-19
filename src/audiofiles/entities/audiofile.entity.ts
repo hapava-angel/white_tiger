@@ -7,9 +7,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('audiofiles') // name of the table
+@Entity('audiofiles')
 export class AudiofileEntity {
-  @PrimaryGeneratedColumn() //table columns, this one is id hence @primarygeneratedcolumns its all magic methods all the @
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()

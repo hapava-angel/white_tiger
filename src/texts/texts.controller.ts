@@ -30,13 +30,13 @@ export class TextsController {
   constructor(private readonly textsService: TextsService) {}
 
   @Post()
-  @ApiConsumes('multipart/form-data')
-  @UseInterceptors(FileInterceptor('text_content', { storage: fileStorage }))
+  // @ApiConsumes('multipart/form-data')
+  // @UseInterceptors(FileInterceptor('text_content', { storage: fileStorage }))
   create(
     @Body() createTextDto: CreateTextDto,
-    @UploadedFile() text_content: Express.Multer.File,
+    // @UploadedFile() text_content: Express.Multer.File,
   ): Promise<TextsEntity> {
-    return this.textsService.create(createTextDto, text_content);
+    return this.textsService.create(createTextDto);
   }
 
   @Get()
@@ -50,14 +50,14 @@ export class TextsController {
   }
 
   @Patch(':id')
-  @ApiConsumes('multipart/form-data')
-  @UseInterceptors(FileInterceptor('text_content', { storage: fileStorage }))
+  // @ApiConsumes('multipart/form-data')
+  // @UseInterceptors(FileInterceptor('text_content', { storage: fileStorage }))
   update(
     @Param('id') id: string,
     @Body() updateTextDto: UpdateTextDto,
-    @UploadedFile() text_content: Express.Multer.File,
+    // @UploadedFile() text_content: Express.Multer.File,
   ): Promise<TextsEntity> {
-    return this.textsService.update(+id, updateTextDto, text_content);
+    return this.textsService.update(+id, updateTextDto);
   }
 
   @Delete(':id')

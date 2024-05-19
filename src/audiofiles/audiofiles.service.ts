@@ -114,37 +114,37 @@ export class AudiofilesService {
     const filePath = audiofile.audio;
     return filePath; 
   }
-  private async generateAudioUrlGoogle(textContent: string): Promise<string> {
-    try {
-      const audioUrl = await googleTTS.getAudioUrl(textContent, {
-        lang: 'en',
-        slow: false,
-      });
-      return audioUrl;
-    } catch (error) {
-      throw new Error(`Error generating audio URL: ${error}`);
-    }
-  }
+  // private async generateAudioUrlGoogle(textContent: string): Promise<string> {
+  //   try {
+  //     const audioUrl = await googleTTS.getAudioUrl(textContent, {
+  //       lang: 'en',
+  //       slow: false,
+  //     });
+  //     return audioUrl;
+  //   } catch (error) {
+  //     throw new Error(`Error generating audio URL: ${error}`);
+  //   }
+  // }
 
-  private async downloadFileGoogle(url: string, filename: string): Promise<void> {
-    try {
-      const response = await axios({
-        method: 'GET',
-        url: url,
-        responseType: 'stream',
-      });
+  // private async downloadFileGoogle(url: string, filename: string): Promise<void> {
+  //   try {
+  //     const response = await axios({
+  //       method: 'GET',
+  //       url: url,
+  //       responseType: 'stream',
+  //     });
 
-      const writer = fs.createWriteStream(filename);
-      response.data.pipe(writer);
+  //     const writer = fs.createWriteStream(filename);
+  //     response.data.pipe(writer);
 
-      return new Promise((resolve, reject) => {
-        writer.on('finish', resolve);
-        writer.on('error', reject);
-      });
-    } catch (error) {
-      throw new Error(`Error downloading and saving audio file: ${error}`);
-    }
-  }
+  //     return new Promise((resolve, reject) => {
+  //       writer.on('finish', resolve);
+  //       writer.on('error', reject);
+  //     });
+  //   } catch (error) {
+  //     throw new Error(`Error downloading and saving audio file: ${error}`);
+  //   }
+  // }
 
 
   async findAll(): Promise<AudiofileEntity[]> {

@@ -13,13 +13,13 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('texts') // name of the table
+@Entity('texts')
 export class TextsEntity {
-  @PrimaryGeneratedColumn() //table columns, this one is id hence @primarygeneratedcolumns its all magic methods all the @
+  @PrimaryGeneratedColumn() 
   id: number;
 
-  @Column()
-  text_content: string;
+  // @Column()
+  // text_content: string;
 
   @Column()
   text_markup: string;
