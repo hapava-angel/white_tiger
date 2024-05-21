@@ -19,7 +19,7 @@ import { RolesGuard } from 'src/auth/guards/role.guard';
 import { ComplexGuard } from 'src/auth/guards/complex.guard';
 
 @ApiBearerAuth()
-@UseGuards(ComplexGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('users')
 @Controller('user')
 export class UserController {
