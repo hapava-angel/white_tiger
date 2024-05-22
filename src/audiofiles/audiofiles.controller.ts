@@ -34,7 +34,7 @@ import { join } from 'path';
 import { createReadStream, existsSync } from 'fs';
 
 @ApiBearerAuth()
-@UseGuards(ComplexGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('audiofiles')
 @Controller('audiofiles')
 export class AudiofilesController {
@@ -72,7 +72,7 @@ export class AudiofilesController {
     const readStream = createReadStream(filePath); 
     return new StreamableFile(readStream); 
   }
-
+ 
   @Patch(':id')
   @Roles(Role.Admin)
   @ApiConsumes('multipart/form-data')

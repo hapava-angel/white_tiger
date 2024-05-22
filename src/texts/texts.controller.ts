@@ -13,7 +13,7 @@ import {
 import { TextsService } from './texts.service';
 import { CreateTextDto } from './dto/create-text.dto';
 import { UpdateTextDto } from './dto/update-text.dto';
-import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TextsEntity } from './entities/text.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { fileStorage } from './storage';
@@ -30,8 +30,11 @@ export class TextsController {
   constructor(private readonly textsService: TextsService) {}
 
   @Post()
-  // @ApiConsumes('multipart/form-data')
+  //@ApiConsumes('multipart/form-data')
   // @UseInterceptors(FileInterceptor('text_content', { storage: fileStorage }))
+  // @ApiOperation({ summary: 'Create a new text' })
+  // @ApiBody({ type: CreateTextDto, description: 'The text markup to be created' }) // Document the request body
+  // @ApiResponse({ status: 201, description: 'The text has been successfully created' })
   create(
     @Body() createTextDto: CreateTextDto,
     // @UploadedFile() text_content: Express.Multer.File,

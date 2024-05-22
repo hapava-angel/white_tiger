@@ -4,16 +4,16 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 
 export class UpdateTextDto extends PartialType(CreateTextDto) {
-  @ApiProperty({
-    type: 'file',
-    properties: {
-      file: {
-        type: 'string',
-        format: 'binary',
-      },
-    },
-  })
-  text_content: Express.Multer.File;
+  // @ApiProperty({
+  //   type: 'file',
+  //   properties: {
+  //     file: {
+  //       type: 'string',
+  //       format: 'binary',
+  //     },
+  //   },
+  // })
+  // text_content: Express.Multer.File;
 
   @IsString()
   text_markup: string;
