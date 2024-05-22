@@ -1,33 +1,33 @@
-import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, VerifyCallback } from 'passport-google-oauth20';
-import { Injectable } from '@nestjs/common';
+// import { PassportStrategy } from '@nestjs/passport';
+// import { Strategy, VerifyCallback } from 'passport-google-oauth20';
+// import { Injectable } from '@nestjs/common';
 
-@Injectable()
-export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
-  constructor() {
-    super({
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'http://127.0.0.1:7777/api/auth/google/redirect/',
-      scope: ['email', 'profile'],
-    });
-  }
-  async validate(
-    accessToken: string,
-    refreshToken: string,
-    profile: any,
-    done: VerifyCallback,
-  ): Promise<any> {
-    const { id, name, emails } = profile;
-    const user = {
-      id: id,
-      email: emails[0].value,
-      firstName: name.givenName,
-      lastName: name.familyName,
-      accessToken,
-      refreshToken,
-    };
+// @Injectable()
+// export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
+//   constructor() {
+//     super({
+//       clientID: process.env.GOOGLE_CLIENT_ID,
+//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//       callbackURL: 'http://127.0.0.1:7777/api/auth/google/redirect/',
+//       scope: ['email', 'profile'],
+//     });
+//   }
+//   async validate(
+//     accessToken: string,
+//     refreshToken: string,
+//     profile: any,
+//     done: VerifyCallback,
+//   ): Promise<any> {
+//     const { id, name, emails } = profile;
+//     const user = {
+//       id: id,
+//       email: emails[0].value,
+//       firstName: name.givenName,
+//       lastName: name.familyName,
+//       accessToken,
+//       refreshToken,
+//     };
 
-    done(null, user);
-  }
-}
+//     done(null, user);
+//   }
+// }
