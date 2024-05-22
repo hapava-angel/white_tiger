@@ -85,7 +85,7 @@ export class AudiofilesController {
     return this.audiofilesService.update(+id, updateAudiofileDto, audio);
   }
 
-  @Delete(':id')
+  @Delete('delite/:id')
   remove(@Param('id') id: string): Promise<DeleteResult> {
     return this.audiofilesService.delete(+id);
   }
